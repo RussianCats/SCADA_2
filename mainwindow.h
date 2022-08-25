@@ -23,6 +23,12 @@ public:
     QThread threadiec60870;
     ProtocolData iec60870;
 
+    QThread threadiec61850;
+    ProtocolData iec61850;
+
+    QThread threadopcua;
+    ProtocolData opcua;
+
 
 
 private slots:
@@ -31,6 +37,12 @@ private slots:
     void on_pushButton_2_clicked();
 
     void updateTextEditIec60870(float,float,float);
+
+    void on_pushButton_13_clicked();
+
+    void on_pushButton_14_clicked();
+
+    void updateTextEditIec61850(float,float,float);
 
 private:
     Ui::MainWindow *ui;

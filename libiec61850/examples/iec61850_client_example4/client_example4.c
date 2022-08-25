@@ -11,7 +11,7 @@ printDataSetValues(MmsValue *dataSet)
     int i, n;
     float value;
     char echo[] = "echo '";
-    char tmp[] = "' > /tmp/pipe_iec61850  ";
+    char tmp[] = "' > /tmp/pipe_61850";
     for (i = 0; i < 3; i++)
     {
 
