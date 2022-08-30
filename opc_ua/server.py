@@ -32,9 +32,9 @@ print("\nДля выхода введите любое число\n")
 def fun():
 
     while True:
-        os.system("cd generator; python gen.py")
+        os.system("python gen.py")
 
-        with open('generator/gen.txt', 'r') as file:
+        with open('gen.txt', 'r') as file:
 
             arr_val = [0] * 96
 
@@ -54,7 +54,7 @@ def fun():
                 Temp.set_value(Temperature)
                 Press.set_value(Pressure)
                 Hum.set_value(Humidity)
-                time.sleep(15*60)
+                time.sleep(1)
 
             print("\n\nПРОШЛО 24 ЧАСА \n\n")
 

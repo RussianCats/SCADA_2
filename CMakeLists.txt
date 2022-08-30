@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         protocoldata.cpp
         protocoldata.h
         settings.h
+        protocolclient.h
+        protocolclient.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

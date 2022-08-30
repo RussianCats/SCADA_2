@@ -22,19 +22,15 @@ void ProtocolData::run()
     {
 
 
-
-        for (int i = 0; i < 96; i++)
-        {
-
             for (int j = 0; j < 3; j++)
             {
-                mkfifo(NAMEDPIPE_NAME, 0777);
+                mkfifo(NAMEDPIPE_NAME.toStdString().c_str(), 0777);
                 // perror("mkfifo");
                 // return 1;
 
                 // printf("%s is created\n", NAMEDPIPE_NAME);
 
-                fd = open(NAMEDPIPE_NAME, O_RDONLY);
+                fd = open(NAMEDPIPE_NAME.toStdString().c_str(), O_RDONLY);
                 // perror("open");
                 // return 1;
                 // printf("%s is opened\n", NAMEDPIPE_NAME);
@@ -45,9 +41,9 @@ void ProtocolData::run()
 
                 // perror("read");
                 close(fd);
-                remove(NAMEDPIPE_NAME);
+                remove(NAMEDPIPE_NAME.toStdString().c_str());
 
-                printf("Incomming message (%d): %s\n", len, buf);
+                //printf("Incomming message (%d): %s\n", len, buf);
 
 
 
@@ -77,10 +73,9 @@ void ProtocolData::run()
             floatData[0] = 0;
             floatData[1] = 0;
             floatData[2] = 0;
-
-        }
     }
 
+    QMetaObject::invokeMethod(this, "run", Qt::QueuedConnection);
     //остановка потока
     emit emitStop();
 };
@@ -95,5 +90,5 @@ void ProtocolData::setRunning(bool newRunning)
     if (m_running == newRunning)
         return;
     m_running = newRunning;
-    emit runningChanged();
+    emit runningChanged(newRunning);
 }

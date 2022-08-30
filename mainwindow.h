@@ -6,6 +6,7 @@
 
 
 #include "protocoldata.h"
+#include "protocolclient.h"
 #include "settings.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,12 +23,18 @@ public:
 
     QThread threadiec60870;
     ProtocolData iec60870;
+    QThread threadiec60870client;
+    ProtocolClient iec60870client;
 
     QThread threadiec61850;
     ProtocolData iec61850;
+    QThread threadiec61850client;
+    ProtocolClient iec61850client;
 
     QThread threadopcua;
     ProtocolData opcua;
+    QThread threadopcuaclient;
+    ProtocolClient opcuaclient;
 
 
 
@@ -43,6 +50,12 @@ private slots:
     void on_pushButton_14_clicked();
 
     void updateTextEditIec61850(float,float,float);
+
+    void on_pushButton_25_clicked();
+
+    void on_pushButton_26_clicked();
+
+    void updateTextEditOpcua(float, float, float);
 
 private:
     Ui::MainWindow *ui;

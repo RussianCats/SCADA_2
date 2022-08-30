@@ -30,18 +30,17 @@ class ProtocolData : public QObject
     //переменная по которой будем выходить из цикла и завершать выполнение метода
     Q_PROPERTY(bool running READ running WRITE setRunning NOTIFY runningChanged);
 
+    bool m_running;
 
 
 public:
     //константы которые будут свои для каждого объекта класса
-    char NAMEDPIPE_NAME[16];
+    QString NAMEDPIPE_NAME;
     int BUFSIZE = 50;
-
-
 
     explicit ProtocolData(QObject *parent = nullptr);
     bool running() const;
-    void setRunning(bool newRunning);
+
 
 signals:
     //чтобы завершить поток
@@ -49,14 +48,15 @@ signals:
     //отправлять данные с протокола
     void emitSendData(float temperature, float humidity, float pressure);
 
-    void runningChanged();
+    void runningChanged(bool newRunning);
 
 public slots:
     // слот создает pipe и берет данные из pipe
     void run();
 
-private:
-    bool m_running;
+    void setRunning(bool newRunning);
+
+
 };
 
 #endif // PROTOCOLDATA_H
