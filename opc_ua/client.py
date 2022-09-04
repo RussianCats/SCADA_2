@@ -4,7 +4,7 @@ from random import randint
 import os
 
 
-url = "opc.tcp://127.0.0.1:4840"
+url = "opc.tcp://127.0.0.1:4843"
 
 client = Client(url)
 

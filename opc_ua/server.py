@@ -5,7 +5,7 @@ import os
 
 
 server = Server()
-url = "opc.tcp://127.0.0.1:4840"
+url = "opc.tcp://127.0.0.1:4843"
 server.set_endpoint(url)
 
 name = "OPCUA_SIMULATION_Server"

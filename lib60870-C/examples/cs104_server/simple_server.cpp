@@ -109,6 +109,7 @@ int main(int argc, char **argv)
     /* create a new slave/server instance with default connection parameters and
      * default message queue size */
     CS104_Slave slave = CS104_Slave_create(10, 10);
+    CS104_Slave_setLocalPort(slave,  4840);
 
     CS104_Slave_setLocalAddress(slave, "0.0.0.0");
 
@@ -161,8 +162,9 @@ int main(int argc, char **argv)
                 CS104_Slave_enqueueASDU(slave, newAsdu);
 
                 CS101_ASDU_destroy(newAsdu);
-                Thread_sleep(1000); // время задержки данных
+               
             }
+             Thread_sleep(1000); // время задержки данных
         }
     }
 
