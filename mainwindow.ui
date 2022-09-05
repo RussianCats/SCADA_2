@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1033</width>
-    <height>543</height>
+    <width>1046</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -169,7 +169,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -221,7 +221,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="textEdit_3">
@@ -406,7 +406,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_9">
@@ -458,7 +458,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="textEdit_9">
@@ -652,7 +652,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_15">
@@ -704,7 +704,7 @@ hr { height: 1px; border-width: 0; }
       </font>
      </property>
      <property name="text">
-      <string>+5</string>
+      <string>-5</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="textEdit_15">

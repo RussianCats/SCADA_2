@@ -64,6 +64,10 @@ add_subdirectory(lib60870-C)
 add_subdirectory(libiec61850)
 add_subdirectory(opc_ua)
 
+#копирование файла settings.txt
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/settings.txt
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 
 install(TARGETS SCADA_2
     BUNDLE DESTINATION .

@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     IedServerConfig config = IedServerConfig_create();
     iedServer = IedServer_createWithConfig(&iedModel, NULL, config);
     IedServerConfig_destroy(config);
-    IedServer_start(iedServer, 4040); // здесь порт
+    IedServer_start(iedServer, 4841); // здесь порт
     //Проверка запущен ли сервер
     if (!IedServer_isRunning(iedServer))
     {
