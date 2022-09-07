@@ -16,6 +16,8 @@
 #include <unistd.h>
 
 
+
+
 //#define NAMEDPIPE_NAME "/tmp/pipe_60870" "/tmp/pipe_opcua" "/tmp/pipe_61850"
 
 //#define BUFSIZE 50

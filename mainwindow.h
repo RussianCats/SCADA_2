@@ -21,6 +21,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    bool sign_iec60870 = false, sign_iec61850 = false, sign_opcua = false;
+
     QThread threadiec60870;
     ProtocolData iec60870;
     QThread threadiec60870client;
@@ -56,6 +58,18 @@ private slots:
     void on_pushButton_26_clicked();
 
     void updateTextEditOpcua(float, float, float);
+
+    bool check(int, bool);
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

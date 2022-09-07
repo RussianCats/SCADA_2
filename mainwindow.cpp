@@ -59,10 +59,12 @@ void MainWindow::updateTextEditIec60870(float temperature, float humidity, float
 void MainWindow::on_pushButton_clicked()
 {
 
-
-    //присваиваем константы
+    //присваиваем значения из настроек
     iec60870.NAMEDPIPE_NAME = str_iec60870;
-    iec60870client.PATH = path_client_iec60870;
+        //для клиента
+    iec60870client.PATH = path_client_iec60870.toStdString();
+    iec60870client.VALUE_IP = ip_iec60870.toStdString();
+    iec60870client.VALUE_PORT = port_iec60870.toStdString();
 
     //чтобы выполнялся цикл
     iec60870.setRunning(true);
@@ -75,6 +77,11 @@ void MainWindow::on_pushButton_clicked()
 
     //при вызове сигнала emitSendData данные выводятся в gui через метод updateTextEdit
     connect(&iec60870, SIGNAL(emitSendData(float,float,float)), this, SLOT(updateTextEditIec60870(float,float,float)));
+
+    //дать значение шторке и поливу
+    ui->textEdit_2->setText("0");
+    ui->textEdit_3->setText("0");
+    sign_iec60870 = true;
 }
 
 
@@ -90,6 +97,11 @@ void MainWindow::on_pushButton_2_clicked()
     threadiec60870client.quit();
 
     ui->textEdit->setText("");
+
+    //дать значение шторке и поливу
+    ui->textEdit_2->setText("");
+    ui->textEdit_3->setText("");
+    sign_iec60870 = false;
 
 }
 
@@ -108,9 +120,13 @@ void MainWindow::updateTextEditIec61850(float temperature, float humidity, float
 void MainWindow::on_pushButton_13_clicked()
 {
 
-    //присваиваем константы
+    //присваиваем значения из настроек
     iec61850.NAMEDPIPE_NAME = str_iec61850;
-    iec61850client.PATH = path_client_iec61850;
+        //для клиента
+    iec61850client.PATH = path_client_iec61850.toStdString();
+    iec61850client.VALUE_IP = ip_iec61850.toStdString();
+    iec61850client.VALUE_PORT = port_iec61850.toStdString();
+
 
     //чтобы выполнялся цикл
     iec61850.setRunning(true);
@@ -155,9 +171,13 @@ void MainWindow::updateTextEditOpcua(float temperature, float humidity, float pr
 
 void MainWindow::on_pushButton_25_clicked()
 {
-    //присваиваем константы
+
+    //присваиваем значения из настроек
     opcua.NAMEDPIPE_NAME = str_opcua;
-    opcuaclient.PATH = path_client_opcua;
+        //для клиента
+    opcuaclient.PATH = path_client_opcua.toStdString();
+    opcuaclient.VALUE_IP = ip_opc_ua.toStdString();
+    opcuaclient.VALUE_PORT = port_opc_ua.toStdString();
 
     //чтобы выполнялся цикл
     opcua.setRunning(true);
@@ -188,4 +208,53 @@ void MainWindow::on_pushButton_26_clicked()
     ui->textEdit_13->setText("");
 
 }
+
+bool MainWindow::check(int value, bool sign)
+{
+    if(sign)
+    {
+        if(value == 100) return false;
+        else return true;
+    }
+    else
+    {
+        if(value == 0) return false;
+        else return true;
+    };
+
+
+};
+
+// iec60870
+//+5 к шторке
+void MainWindow::on_pushButton_3_clicked()
+{
+    int curtain = ui->textEdit_2->toPlainText().toInt();
+    if(check(curtain, true) && sign_iec60870) ui->textEdit_2->setText(QString::number(curtain + 5));
+
+};
+
+//-5 к шторке
+void MainWindow::on_pushButton_4_clicked()
+{
+    int curtain = ui->textEdit_2->toPlainText().toInt();
+    if(check(curtain, false) && sign_iec60870) ui->textEdit_2->setText(QString::number(curtain - 5));
+
+};
+
+//+5 к поливу
+void MainWindow::on_pushButton_5_clicked()
+{
+    int pour = ui->textEdit_3->toPlainText().toInt();
+    if(check(pour, true) && sign_iec60870) ui->textEdit_3->setText(QString::number(pour + 5));
+
+}
+;
+//-5 к поливу
+void MainWindow::on_pushButton_6_clicked()
+{
+    int pour = ui->textEdit_3->toPlainText().toInt();
+    if(check(pour, false) && sign_iec60870) ui->textEdit_3->setText(QString::number(pour - 5));
+
+};
 

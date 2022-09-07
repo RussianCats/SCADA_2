@@ -108,7 +108,7 @@ asduReceivedHandler(void *parameter, int address, CS101_ASDU asdu)
 int main(int argc, char **argv)
 {
     const char *ip = "localhost";
-    uint16_t port = IEC_60870_5_104_DEFAULT_PORT;
+    uint16_t port = 4840;
     const char *localIp = NULL;
     int localPort = -1;
 

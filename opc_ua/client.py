@@ -2,9 +2,14 @@ from opcua import Client
 import time
 from random import randint
 import os
+from sys import argv
 
 
-url = "opc.tcp://127.0.0.1:4840"
+script, IP, PORT = argv
+
+url = f"opc.tcp://{IP}:{PORT}"
+
+
 
 client = Client(url)
 
