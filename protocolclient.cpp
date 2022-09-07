@@ -7,7 +7,7 @@ void ProtocolClient::run()
 
         if (file.is_open())
         {
-            while (!file.eof())
+            for (int i = 0; i < 7; i++)
             {
 
                 file >> value;
