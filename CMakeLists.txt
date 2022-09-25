@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         settings.h
         protocolclient.h
         protocolclient.cpp
+        processing.cpp
+        processing.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

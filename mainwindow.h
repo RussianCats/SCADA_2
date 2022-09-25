@@ -7,6 +7,7 @@
 
 #include "protocoldata.h"
 #include "protocolclient.h"
+#include "processing.h"
 #include "settings.h"
 
 QT_BEGIN_NAMESPACE
@@ -27,6 +28,12 @@ public:
     ProtocolData iec60870;
     QThread threadiec60870client;
     ProtocolClient iec60870client;
+    // для отправки данных на iedы
+    QThread threadiec60870server;
+    ProtocolClient iec60870server;
+    QThread threadiec60870Handler;
+    protocolServer iec60870Handler;
+
 
     QThread threadiec61850;
     ProtocolData iec61850;
@@ -37,6 +44,18 @@ public:
     ProtocolData opcua;
     QThread threadopcuaclient;
     ProtocolClient opcuaclient;
+
+    // для шторки и полива
+
+signals:
+    void emitServer60870Curtain(int);
+    void emitServer60870Pour(int);
+    void emitServer61850Curtain(int);
+    void emitServer61850Pour(int);
+    void emitServerOpcuaCurtain(int);
+    void emitServerOpcuaPour(int);
+
+
 
 
 

@@ -18,9 +18,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&iec60870, &ProtocolData::emitStop, &threadiec60870, &QThread::terminate);
     // передать объект в поток
     iec60870.moveToThread(&threadiec60870);
-
+    //для работы клиента который принимает данные от iedов
     connect(&threadiec60870client, &QThread::started, &iec60870client, &ProtocolClient::run);
     iec60870client.moveToThread(&threadiec60870client);
+    //для работы сервера который отправляет данные на ied
+    connect(&threadiec60870server, &QThread::started, &iec60870server, &ProtocolClient::runServ);
+    iec60870server.moveToThread(&threadiec60870server);
+    // для работы обработчика
+    connect(&threadiec60870Handler, &QThread::started, &iec60870Handler, &protocolServer::run);
+    iec60870Handler.moveToThread(&threadiec60870Handler);
+
+
 
 
     // iec61850
@@ -46,6 +54,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//общая функция
+bool MainWindow::check(int value, bool sign)
+{
+    if(sign)
+    {
+        if(value == 100) return false;
+        else return true;
+    }
+    else
+    {
+        if(value == 0) return false;
+        else return true;
+    };
+
+
+};
 
 /*---------------------------------------------------iec60870-------------------------------------------------------*/
 
@@ -61,17 +85,24 @@ void MainWindow::on_pushButton_clicked()
 
     //присваиваем значения из настроек
     iec60870.NAMEDPIPE_NAME = str_iec60870;
+    iec60870Handler.NAME_PIPE = str_serv_iec60870.toStdString();
         //для клиента
     iec60870client.PATH = path_client_iec60870.toStdString();
     iec60870client.VALUE_IP = ip_iec60870.toStdString();
     iec60870client.VALUE_PORT = port_iec60870.toStdString();
+        //для сервера
+    iec60870server.PATH = path_serv_iec60870.toStdString();
+    iec60870server.VALUE_PORT = port_serv_iec60870.toStdString();
 
     //чтобы выполнялся цикл
     iec60870.setRunning(true);
+    iec60870Handler.setRunning(true);
 
     //запустить поток
     threadiec60870.start();
     threadiec60870client.start();
+    threadiec60870server.start();
+    threadiec60870Handler.start();
 
     qDebug() << "Кнопка нажата для iec60870";
 
@@ -89,12 +120,15 @@ void MainWindow::on_pushButton_2_clicked()
 {
     //чтобы остановился цикл
     iec60870.setRunning(false);
+    iec60870Handler.setRunning(false);
 
     //отключает соеденение с сигнала emitSendData и данных которые выводятся в gui через метод updateTextEdit
     disconnect(&iec60870, SIGNAL(emitSendData(float, float, float)), this, SLOT(updateTextEditIec60870(float, float, float)));
 
     threadiec60870.quit();
     threadiec60870client.quit();
+    threadiec60870server.quit();
+    threadiec60870Handler.quit();
 
     ui->textEdit->setText("");
 
@@ -104,6 +138,56 @@ void MainWindow::on_pushButton_2_clicked()
     sign_iec60870 = false;
 
 }
+
+
+
+// iec60870
+//+5 к шторке
+void MainWindow::on_pushButton_3_clicked()
+{
+    int curtain = ui->textEdit_2->toPlainText().toInt();
+    if(check(curtain, true) && sign_iec60870)
+    {
+        ui->textEdit_2->setText(QString::number(curtain + 5));
+        iec60870Handler.CURTAIN = curtain + 5;
+    }
+
+};
+
+//-5 к шторке
+void MainWindow::on_pushButton_4_clicked()
+{
+    int curtain = ui->textEdit_2->toPlainText().toInt();
+    if(check(curtain, false) && sign_iec60870)
+    {
+        ui->textEdit_2->setText(QString::number(curtain - 5));
+        iec60870Handler.CURTAIN = curtain - 5;
+    }
+};
+
+//+5 к поливу
+void MainWindow::on_pushButton_5_clicked()
+{
+    int pour = ui->textEdit_3->toPlainText().toInt();
+    if(check(pour, true) && sign_iec60870)
+    {
+        ui->textEdit_3->setText(QString::number(pour + 5));
+        iec60870Handler.POUR = pour + 5;
+    }
+
+}
+;
+//-5 к поливу
+void MainWindow::on_pushButton_6_clicked()
+{
+    int pour = ui->textEdit_3->toPlainText().toInt();
+    if(check(pour, false) && sign_iec60870)
+    {
+        ui->textEdit_3->setText(QString::number(pour - 5));
+        iec60870Handler.POUR = pour - 5;
+    }
+
+};
 
 
 
@@ -122,7 +206,7 @@ void MainWindow::on_pushButton_13_clicked()
 
     //присваиваем значения из настроек
     iec61850.NAMEDPIPE_NAME = str_iec61850;
-        //для клиента
+    //для клиента
     iec61850client.PATH = path_client_iec61850.toStdString();
     iec61850client.VALUE_IP = ip_iec61850.toStdString();
     iec61850client.VALUE_PORT = port_iec61850.toStdString();
@@ -209,52 +293,5 @@ void MainWindow::on_pushButton_26_clicked()
 
 }
 
-bool MainWindow::check(int value, bool sign)
-{
-    if(sign)
-    {
-        if(value == 100) return false;
-        else return true;
-    }
-    else
-    {
-        if(value == 0) return false;
-        else return true;
-    };
 
-
-};
-
-// iec60870
-//+5 к шторке
-void MainWindow::on_pushButton_3_clicked()
-{
-    int curtain = ui->textEdit_2->toPlainText().toInt();
-    if(check(curtain, true) && sign_iec60870) ui->textEdit_2->setText(QString::number(curtain + 5));
-
-};
-
-//-5 к шторке
-void MainWindow::on_pushButton_4_clicked()
-{
-    int curtain = ui->textEdit_2->toPlainText().toInt();
-    if(check(curtain, false) && sign_iec60870) ui->textEdit_2->setText(QString::number(curtain - 5));
-
-};
-
-//+5 к поливу
-void MainWindow::on_pushButton_5_clicked()
-{
-    int pour = ui->textEdit_3->toPlainText().toInt();
-    if(check(pour, true) && sign_iec60870) ui->textEdit_3->setText(QString::number(pour + 5));
-
-}
-;
-//-5 к поливу
-void MainWindow::on_pushButton_6_clicked()
-{
-    int pour = ui->textEdit_3->toPlainText().toInt();
-    if(check(pour, false) && sign_iec60870) ui->textEdit_3->setText(QString::number(pour - 5));
-
-};
 

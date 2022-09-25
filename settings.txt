@@ -5,3 +5,7 @@ ip_iec61850=localhost
 port_iec61850=4841
 ip_opc_ua=127.0.0.1
 port_opc_ua=4842
+port_iec60870_serv=4850
+port_iec61850_serv=4851
+ip_opc_ua_serv=127.0.0.1
+port_opc_ua_serv=4852

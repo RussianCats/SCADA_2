@@ -1,6 +1,7 @@
 
 add_subdirectory(cs104_client)
 add_subdirectory(cs104_server)
+add_subdirectory(send_server)
 # add_subdirectory(generator)
 
 
