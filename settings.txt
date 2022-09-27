@@ -1,7 +1,7 @@
 time=1000
 ip_iec60870=localhost
 port_iec60870=4840
-ip_iec61850=localhost
+ip_iec61850=192.168.0.107
 port_iec61850=4841
-ip_opc_ua=127.0.0.1
+ip_opc_ua=192.168.0.107
 port_opc_ua=4842

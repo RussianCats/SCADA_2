@@ -2,6 +2,7 @@
 
 void ProtocolClient::run()
 {
+    setTerminationEnabled(true);
     ifstream file("settings.txt"); // окрываем файл для чтения
         string value;
 

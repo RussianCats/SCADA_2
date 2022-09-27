@@ -16,10 +16,12 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow, public Settings
 {
     Q_OBJECT
-
 public:
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    //чтобы можн было убить потоки клиентов через QThread::terminate()
+    //void setTerminationEnabled(bool enabled = true);
 
     bool sign_iec60870 = false, sign_iec61850 = false, sign_opcua = false;
 

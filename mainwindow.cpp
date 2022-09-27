@@ -95,6 +95,8 @@ void MainWindow::on_pushButton_2_clicked()
 
     threadiec60870.quit();
     threadiec60870client.quit();
+    threadiec60870client.terminate();
+
 
     ui->textEdit->setText("");
 
@@ -153,6 +155,7 @@ void MainWindow::on_pushButton_14_clicked()
 
     threadiec61850.quit();
     threadiec61850client.quit();
+    threadiec61850client.quit();
 
     ui->textEdit_7->setText("");
 }
@@ -184,6 +187,7 @@ void MainWindow::on_pushButton_25_clicked()
 
     //запустить поток
     threadopcua.start();
+    threadopcuaclient.terminate();
     threadopcuaclient.start();
 
     qDebug() << "Кнопка нажата для opcua";
