@@ -64,7 +64,7 @@ void ProtocolData::run()
                 {
                     floatData[j] += ((int)(buf[k + num_point + 1]) - 48) / pow(10, (k + 1));
                 }
-                sleep(0.2);
+                sleep(0.1);
             }
 
             printf("floatData %f %f %f \n", floatData[0], floatData[1], floatData[2]);
