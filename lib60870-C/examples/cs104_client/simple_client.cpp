@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-
+#include <unistd.h>
 #include <iostream>
 
 /* Callback handler to log sent or received messages (optional) */
@@ -93,6 +93,7 @@ asduReceivedHandler(void *parameter, int address, CS101_ASDU asdu)
                   // std::cout << "\n данные на system: " << str;
                    //отправка данных на iec60870.cpp через pipe
                    system(str.c_str());
+                   sleep(0.1);
 
             ParameterFloatValue_destroy(io);
         }

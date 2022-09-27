@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "string.h"
+#include <unistd.h>
+
 #include "hal_thread.h"
 
 
@@ -35,6 +37,8 @@ printDataSetValues(MmsValue *dataSet)
 
         //отправка данных на iec60870.cpp через pipe
         system(all);
+        sleep(0.1);
+
     }
 }
 
