@@ -66,6 +66,7 @@ void ProtocolData::run()
                 }
                 sleep(0.1);
             }
+            sleep(1);
 
             printf("floatData %f %f %f \n", floatData[0], floatData[1], floatData[2]);
 
